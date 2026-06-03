@@ -7,7 +7,21 @@
   --yellow: #FFD700;
 }
 
+header {
+    background-color: var(--accent-red);
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
 body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -30,4 +44,18 @@ body {
     border: 1px solid var(--accent-blue);
 }
 
-.pokemon
+.pokemon-card img {
+    width: 120px;
+    height: 120px;
+}
+
+.pokemon-card p:first-of-type {
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.pokemon-card p:last-of-type {
+    color: var(--yellow);
+    font-size: 12px;;
+}

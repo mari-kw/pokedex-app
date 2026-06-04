@@ -10,8 +10,18 @@ async function fetchPokemonList() {
       fetch(pokemon.url).then(res => res.json())
     )
   )
-  
-  pokemonDetails.forEach(pokemon => {
+
+  allPokemon = pokemonDetails; // pokemonDetails is an array containing pokemon elements
+  displayPokemon(allPokemon);
+
+}
+
+fetchPokemonList();
+let allPokemon = [];
+
+async function displayPokemon(pokemonList){
+  document.getElementById("pokemon-container").innerHTML = "" //clear first!
+  pokemonList.forEach(pokemon => {
     const card = document.createElement("div")// creates div html element dynamically
     card.classList.add("pokemon-card")
     card.innerHTML = `<img src="${pokemon.sprites.front_default}">
@@ -20,7 +30,14 @@ async function fetchPokemonList() {
 
     document.getElementById("pokemon-container").appendChild(card)
   })
-
 }
 
-fetchPokemonList();
+async function searchPokemon() {
+  let value = document.getElementById("search-input").value.toLowerCase();
+  const filtered = allPokemon.filter(pokemon =>
+    pokemon.name.includes(value)
+  )
+  displayPokemon(filtered);
+}
+
+document.getElementById("search-input").addEventListener("input", searchPokemon);

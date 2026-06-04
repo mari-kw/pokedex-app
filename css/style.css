@@ -59,3 +59,38 @@ body {
     color: var(--yellow);
     font-size: 12px;;
 }
+
+/* Hover lift effect */
+.pokemon-card {
+    /* transition time */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    cursor: pointer;
+    animation: fadeSlideUp 0.5s ease;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-7px) translateX(-7px);
+    box-shadow: 7px 7px var(--accent-red);
+}
+
+/* keyframes - define a multi-step animation */
+@keyframes fadeSlideUp {
+    from{
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Image bounce on hover */
+.pokemon-card:hover img {
+    animation: bounce 0.4s ease infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0px);}
+    to {transform: translateY(-10px);}
+}

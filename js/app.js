@@ -1,14 +1,7 @@
-// async function getPokemon() {
-//   const response = await fetch("https://pokeapi.co/api/v2/pokemon/pikachu")
-//   const data = await response.json()
-//   console.log(data)  // this prints the data to the console
-// }
-
-// getPokemon()  // this actually runs the function
 
 async function fetchPokemonList() {
   const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-  const data = await response.json()//convert the raw response into usable js data
+  const data = await response.json()// convert the raw response into usable js data
 
   const pokemonArray = data.results
 
@@ -19,7 +12,7 @@ async function fetchPokemonList() {
   )
   
   pokemonDetails.forEach(pokemon => {
-    const card = document.createElement("div")
+    const card = document.createElement("div")// creates div html element dynamically
     card.classList.add("pokemon-card")
     card.innerHTML = `<img src="${pokemon.sprites.front_default}">
     <p>${pokemon.name}</p>

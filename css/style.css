@@ -118,3 +118,25 @@ body {
 }
 
 
+#modal-overlay {
+    position: fixed;
+    inset: 0; /* set everythig to 0 */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-content {
+    background-color: var(--bg-color);
+    width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+#modal-overlay.hidden {
+    display: none;
+}

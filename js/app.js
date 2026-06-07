@@ -73,6 +73,11 @@ function openModal(pokemon) {
   <div> ${typeBadges} </div>
   <div> ${statusBadges} </div>
   `
+  document.getElementById("close").addEventListener("click", closeModal)
+  
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal()
+  })
 }
 
 async function searchPokemon() {
@@ -85,3 +90,7 @@ async function searchPokemon() {
 
 document.getElementById("search-input").addEventListener("input", searchPokemon);
 
+function closeModal() {
+  const overlay = document.getElementById("modal-overlay")
+  overlay.classList.add("hidden")
+}

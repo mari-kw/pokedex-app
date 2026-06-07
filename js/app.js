@@ -32,9 +32,6 @@ async function displayPokemon(pokemonList){
     <p>${pokemon.name}</p>
     <p>${pokemon.id}</p>`
 
-    
-    
-    
     document.getElementById("pokemon-container").appendChild(card)
   })
 }
@@ -60,17 +57,25 @@ function openModal(pokemon) {
   ).join(" ")
 
   const statusBadges = pokemon.stats.map(s => 
-    `<p>${s.stat.name}: ${s.base_stat}</p>`
-  ).join("")
+    `<div class="stat-row">
+      <span class="stat-name">${s.stat.name}</span>
+      <div class="stat-bar">
+        <div class="stat-fill" style="width: ${s.base_stat / 255 * 100}%"></div>
+      </div>
+      <span class="stat-value">${s.base_stat}</span>
+    </div>
+  `).join("")
 
   const content = document.getElementById("modal-content")
   content.innerHTML = `
-  <button id="close">close</button>
-  <img src="${pokemon.sprites.front_default}">
-  <p> ${pokemon.name} </p>
-  <p> ${pokemon.height} </p>
-  <p> ${pokemon.weight} </p>
-  <div> ${typeBadges} </div>
+  <button id="close">X</button>
+  <img src="${pokemon.sprites.other["official-artwork"].front_default}">
+  <h2 id="modal-name"> ${pokemon.name} </h2>
+  <div id="modal-hw">
+    <p> ${pokemon.height / 10}m </p>
+    <p> ${pokemon.weight / 10}kg </p>
+  </div>
+  <div id="modal-types"> ${typeBadges} </div>
   <div> ${statusBadges} </div>
   `
   document.getElementById("close").addEventListener("click", closeModal)

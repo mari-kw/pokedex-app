@@ -129,6 +129,7 @@ body {
 }
 
 #modal-content {
+    position: relative;
     background-color: var(--bg-color);
     width: 400px;
     padding: 20px;
@@ -137,6 +138,112 @@ body {
     max-height: 80vh;
 }
 
+#modal-content img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+#modal-name {
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--yellow);
+    margin: 10px 0;
+}
+
+#modal-hw {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    color: var*(var(--text-color));
+    font-size: 14px;
+}
 #modal-overlay.hidden {
     display: none;
+}
+
+.type-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: white;
+}
+
+#modal-types {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.normal { background-color: #A8A878; }
+.fire { background-color: #F08030; }
+.water { background-color: #6890F0; }
+.electric { background-color: #F8D030; }
+.grass { background-color: #78C850; }
+.ice { background-color: #98D8D8; }
+.fighting { background-color: #C03028; }
+.poison { background-color: #A040A0; }
+.ground { background-color: #E0C068; }
+.flying { background-color: #A890F0; }
+.psychic { background-color: #F85888; }
+.bug { background-color: #A8B820; }
+.rock { background-color: #B8A038; }
+.ghost { background-color: #705898; }
+.dragon { background-color: #7038F8; }
+.dark { background-color: #705848; }
+.steel { background-color: #B8B8D0; }
+.fairy { background-color: #EE99AC; }
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0;
+}
+
+.stat-name {
+    width: 120px;
+    font-size: 12px;
+    text-transform: capitalize;
+    color: var(--yellow);
+}
+
+.stat-bar {
+    flex: 1;
+    background-color: var(--accent-blue);
+    border-radius: 10px;
+    height: 8px;
+}
+
+.stat-fill {
+    height: 100%;
+    background-color: var(--accent-red);
+    border-radius: 10px;
+}
+
+.stat-value {
+    width: 30px;
+    font-size: 12px;
+    text-align: right;
+}
+
+#close {
+    position:absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
 }

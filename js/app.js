@@ -15,12 +15,14 @@ async function fetchPokemonList() {
   console.log(data);
   allPokemon = pokemonDetails; // pokemonDetails is an array containing pokemon elements
   displayPokemon(allPokemon);
+  displayTypeFilters(allPokemon);
 
 }
 
 fetchPokemonList();
 let allPokemon = [];
 
+// go through pokemonList and creates all pokemon cards elements and appends those to pokemon-container
 async function displayPokemon(pokemonList){
   document.getElementById("pokemon-container").innerHTML = "" //clear first!
   pokemonList.forEach(pokemon => {
@@ -48,6 +50,7 @@ document.getElementById("pokemon-container").addEventListener("click", (e) => {
 
 
 function openModal(pokemon) {
+  // makes the overlay appear
   const overlay = document.getElementById("modal-overlay")
   overlay.classList.remove("hidden")
   
@@ -68,7 +71,7 @@ function openModal(pokemon) {
 
   const content = document.getElementById("modal-content")
   content.innerHTML = `
-  <button id="close">X</button>
+  <button id="close">x</button>
   <img src="${pokemon.sprites.other["official-artwork"].front_default}">
   <h2 id="modal-name"> ${pokemon.name} </h2>
   <div id="modal-hw">
@@ -85,6 +88,11 @@ function openModal(pokemon) {
   })
 }
 
+function closeModal() {
+  const overlay = document.getElementById("modal-overlay")
+  overlay.classList.add("hidden")
+}
+
 async function searchPokemon() {
   let value = document.getElementById("search-input").value.toLowerCase();
   const filtered = allPokemon.filter(pokemon =>
@@ -95,7 +103,21 @@ async function searchPokemon() {
 
 document.getElementById("search-input").addEventListener("input", searchPokemon);
 
-function closeModal() {
-  const overlay = document.getElementById("modal-overlay")
-  overlay.classList.add("hidden")
+
+
+function displayTypeFilters() {
+  // removing duplicates with Set and putting it back to array
+  const allTypes = [...new Set(
+    allPokemon.map(pokemon => pokemon.types.map(t => t.type.name)).flat()
+  )]
+  allTypes.forEach(type => {
+    const button = document.createElement("button")
+    button.className = `type-badge ${type}`
+    button.textContent = type
+    button.addEventListener("click", () => filterByType(type))
+    document.getElementById("type-filters").appendChild(button)
+  }
+  )
 }
+
+

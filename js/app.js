@@ -1,7 +1,7 @@
 
 async function fetchPokemonList() {
   const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-  const data = await response.json()// convert data from api into js objet 
+  const data = await response.json()// convert data from api into js object 
 
   const pokemonArray = data.results
 
@@ -12,11 +12,11 @@ async function fetchPokemonList() {
     )
   ]
   )
-  console.log(data);
+  //console.log(data);
   allPokemon = pokemonDetails; // pokemonDetails is an array containing pokemon elements
   displayPokemon(allPokemon);
   displayTypeFilters(allPokemon);
-
+  
 }
 
 fetchPokemonList();
@@ -36,6 +36,8 @@ async function displayPokemon(pokemonList){
 
     document.getElementById("pokemon-container").appendChild(card)
   })
+
+  console.log(pokemonList);
 }
 
 // a function to search the clicked pokemon card
@@ -51,13 +53,13 @@ document.getElementById("pokemon-container").addEventListener("click", (e) => {
 
 function openModal(pokemon) {
   // makes the overlay appear
-  const overlay = document.getElementById("modal-overlay")
+  const overlay = document.getElementById("modal-overlay")// hidden by default
   overlay.classList.remove("hidden")
   
   const types = pokemon.types.map(t => t.type.name) // modify pokemon types array 
   const typeBadges = types.map(type =>
     `<span class="type-badge ${type}">${type}</span>`
-  ).join(" ")
+  ).join("")
 
   const statusBadges = pokemon.stats.map(s => 
     `<div class="stat-row">
@@ -101,23 +103,30 @@ async function searchPokemon() {
   displayPokemon(filtered);
 }
 
+
 document.getElementById("search-input").addEventListener("input", searchPokemon);
 
 
 
-function displayTypeFilters() {
+function displayTypeFilters(allPokemon) {
   // removing duplicates with Set and putting it back to array
-  const allTypes = [...new Set(
-    allPokemon.map(pokemon => pokemon.types.map(t => t.type.name)).flat()
+  const allTypes = [...new Set(// remove the duplicates
+    allPokemon.map(pokemon => pokemon.types.map(t => t.type.name)).flat() // make one layer array
   )]
   allTypes.forEach(type => {
-    const button = document.createElement("button")
-    button.className = `type-badge ${type}`
+    const button = document.createElement("button") // dynamically create html element
+    button.className = `type-badge ${type}` // for CSS
     button.textContent = type
     button.addEventListener("click", () => filterByType(type))
     document.getElementById("type-filters").appendChild(button)
   }
-  )
+)
 }
 
+async function filterByType(type) {
+  const filtered = allPokemon.filter(pokemon => 
+    pokemon.types.some(t => t.type.name === type)
+  )
+  displayPokemon(filtered);
+}
 

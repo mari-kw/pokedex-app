@@ -21,6 +21,8 @@ async function fetchPokemonList() {
 
 fetchPokemonList();
 let allPokemon = [];
+let searchText = ""; // state for search Text
+let selectedType = ""; // state for selected Type
 
 // go through pokemonList and creates all pokemon cards elements and appends those to pokemon-container
 async function displayPokemon(pokemonList){
@@ -95,19 +97,6 @@ function closeModal() {
   overlay.classList.add("hidden")
 }
 
-async function searchPokemon() {
-  let value = document.getElementById("search-input").value.toLowerCase();
-  const filtered = allPokemon.filter(pokemon =>
-    pokemon.name.includes(value)
-  )
-  displayPokemon(filtered);
-}
-
-
-document.getElementById("search-input").addEventListener("input", searchPokemon);
-
-
-
 function displayTypeFilters(allPokemon) {
   // removing duplicates with Set and putting it back to array
   const allTypes = [...new Set(// remove the duplicates
@@ -123,10 +112,32 @@ function displayTypeFilters(allPokemon) {
 )
 }
 
-async function filterByType(type) {
-  const filtered = allPokemon.filter(pokemon => 
-    pokemon.types.some(t => t.type.name === type)
-  )
+document.getElementById("search-input").addEventListener("input", searchPokemon);
+
+// updates the state variable serachText
+function searchPokemon() {
+  searchText = document.getElementById("search-input").value.toLowerCase();
+  applyFilters();
+}
+
+// updates the state variable selectedType
+function filterByType(type) {
+  selectedType = type;
+  applyFilters();
+}
+
+// filters pokemon by searchText and selectedType
+function applyFilters() {
+  const filtered = allPokemon.filter(pokemon => {
+    const matchesSearch = 
+      searchText === "" || pokemon.name.includes(searchText)
+    const matchesType = 
+      selectedType === "" || pokemon.types.some(t => t.type.name === selectedType)
+
+    return matchesSearch && matchesType;
+  })
+
   displayPokemon(filtered);
 }
+
 

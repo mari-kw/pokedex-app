@@ -115,7 +115,7 @@ function displayTypeFilters(allPokemon) {
   }
 )
 }
-
+ 
 document.getElementById("search-input").addEventListener("input", searchPokemon);
 
 // updates the state variable serachText

@@ -22,7 +22,7 @@ async function fetchPokemonList() {
 fetchPokemonList();
 let allPokemon = [];
 let searchText = ""; // state for search Text
-let selectedType = ""; // state for selected Type
+let selectedTypes = []; // state for selected Type
 
 // go through pokemonList and creates all pokemon cards elements and appends those to pokemon-container
 async function displayPokemon(pokemonList){
@@ -102,10 +102,14 @@ function displayTypeFilters(allPokemon) {
   const allTypes = [...new Set(// remove the duplicates
     allPokemon.map(pokemon => pokemon.types.map(t => t.type.name)).flat() // make one layer array
   )]
+  document.getElementById("type-filters").innerHTML = ""
   allTypes.forEach(type => {
     const button = document.createElement("button") // dynamically create html element
     button.className = `type-badge ${type}` // for CSS
     button.textContent = type
+    if (selectedTypes.includes(type)) {
+      button.classList.add('selected')
+    }
     button.addEventListener("click", () => filterByType(type))
     document.getElementById("type-filters").appendChild(button)
   }
@@ -122,7 +126,16 @@ function searchPokemon() {
 
 // updates the state variable selectedType
 function filterByType(type) {
-  selectedType = type;
+  // boolean variable
+  const alreadySelected = selectedTypes.includes(type);
+  if (alreadySelected) {
+    // new array without alreadySelectedType
+    let removedTypes = selectedTypes.filter(currentType => currentType !== type)
+    selectedTypes = removedTypes;
+  } else {
+    let addedTypes = [...selectedTypes, type] // adds selected type at the end of the selectedType array
+    selectedTypes = addedTypes;
+  }
   applyFilters();
 }
 
@@ -132,12 +145,13 @@ function applyFilters() {
     const matchesSearch = 
       searchText === "" || pokemon.name.includes(searchText)
     const matchesType = 
-      selectedType === "" || pokemon.types.some(t => t.type.name === selectedType)
+      selectedTypes.length === 0 || selectedTypes.every(type => pokemon.types.some(t => t.type.name === type))
 
     return matchesSearch && matchesType;
   })
 
   displayPokemon(filtered);
+  displayTypeFilters(allPokemon);
 }
 
 

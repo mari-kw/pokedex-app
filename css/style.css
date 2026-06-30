@@ -95,10 +95,27 @@ body {
     to {transform: translateY(-10px);}
 }
 
+
+#filters-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
 #search-container {
     display: flex;
     justify-content: center;
     padding: 20px;
+}
+
+#clear-filters-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 2px solid var(--accent-red);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
 }
 
 #search-input {
@@ -171,7 +188,21 @@ body {
     font-size: 12px;
     font-weight: bold;
     text-transform: capitalize;
+    cursor: pointer;
     color: white;
+    border: 2px solid transparent;
+}
+
+.type-badge.selected {
+    border: 2px solid var(--yellow);
+}
+
+#type-filters {
+    display:flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 8px;
 }
 
 #modal-types {

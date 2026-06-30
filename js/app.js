@@ -14,8 +14,7 @@ async function fetchPokemonList() {
   )
   //console.log(data);
   allPokemon = pokemonDetails; // pokemonDetails is an array containing pokemon elements
-  displayPokemon(allPokemon);
-  displayTypeFilters(allPokemon);
+  applyFilters();
   
 }
 
@@ -139,6 +138,16 @@ function filterByType(type) {
   applyFilters();
 }
 
+// resets searchText, selectedTypes, input value
+function clearAll() {
+  searchText = "";
+  selectedTypes = [];
+  document.getElementById("search-input").value = "";
+  applyFilters();
+}
+
+document.getElementById("clear-filters-btn").addEventListener("click", clearAll)
+
 // filters pokemon by searchText and selectedType
 function applyFilters() {
   const filtered = allPokemon.filter(pokemon => {
@@ -152,6 +161,15 @@ function applyFilters() {
 
   displayPokemon(filtered);
   displayTypeFilters(allPokemon);
+  updateClearButtonState();
 }
+
+// update the clear button state
+// clear-all button should be disabled when there is nothing to clear
+function updateClearButtonState() {
+  const button = document.getElementById("clear-filters-btn")
+  const hasActiveFilters = searchText !== "" || selectedTypes.length > 0
+  button.disabled = !hasActiveFilters 
+} 
 
 
